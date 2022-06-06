@@ -7,6 +7,15 @@ axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${process.env.LAT}
   writeYamlFile('weather.yaml', data.data).then(() => {
     console.log('done')
   })
+  axios.post("http://192.168.50.4:3000/xhr/webhook/execute", {
+    data: JSON.stringify({ 
+      "subject": `${process.env.JOB_ID}`, 
+      "message": `${process.env.LINK}` })
+  }, {
+    headers: {
+      'Authorization': `Bearer ${process.env.WEBHOOK_TOKEN}`
+    }
+  })
 }).catch(function (ex) {
   console.log(ex);
 })
