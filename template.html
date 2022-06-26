@@ -1,0 +1,226 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+  <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap");
+
+    #weather h2 {
+      font-family: "Barlow";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 29px;
+      text-transform: uppercase;
+      color: #444444;
+    }
+
+    #weather ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #weather ul li {
+      text-align: center;
+    }
+
+    #weather p {
+      font-family: "Barlow";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      color: #707070;
+      margin-bottom: 5px;
+    }
+
+    #weather a {
+      font-family: "Barlow";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      color: #4393fb;
+    }
+
+    #weather .header,
+    #weather .main-weather,
+    #weather .sun-position,
+    #weather .list-temperature,
+    #weather .sun-position,
+    #weather .status,
+    #weather .weather-day {
+      padding: 30px 0;
+    }
+
+    #weather .main-weather {
+      padding: 20px 0;
+    }
+
+    #weather .main-weather .icon {
+      padding-right: 40px;
+      text-align: center;
+    }
+
+    #weather .main-weather .icon ion-icon {
+      font-size: 80px;
+      color: #4393fb;
+      margin-bottom: 10px;
+    }
+
+    #weather .main-weather .temperature {
+      text-align: center;
+    }
+
+    #weather .main-weather .temperature h1 {
+      font-size: 80px;
+    }
+
+    #weather .main-weather .temperature h1 small {
+      font-size: 30px;
+    }
+
+    #weather .sun-position ion-icon {
+      font-size: 30px;
+      margin-bottom: 10px;
+      color: #4393fb;
+    }
+
+    #weather .status ion-icon {
+      font-size: 30px;
+      margin-bottom: 10px;
+      color: #4393fb;
+    }
+
+    #weather .weather-day {
+      font-size: 80px;
+      margin-bottom: 10px;
+      color: #F9ED58;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="weather">
+    <div class="header d-flex justify-content-between">
+      <div class="city-name">
+        <h2>{{main.name}}</h2>
+        <p>{{main.current_time}}</p>
+      </div>
+      <div class="copyright">
+        <p>Powered by</p>
+        <a href="#">OpenWeatherMap</a>
+      </div>
+    </div>
+
+    <div class="main-weather d-flex justify-content-center align-items-end">
+      <div class="icon">
+        {{#if main.weather[0].main == "Thunderstorm"}}
+        <ion-icon name="thunderstorm-outline"></ion-icon>
+        {{elseif main.weather[0].main == "Drizzle" }}
+        <ion-icon name="rainy-outline"></ion-icon>
+        {{elseif main.weather[0].main == "Rain" }}
+        <ion-icon name="rainy-outline"></ion-icon>
+        {{elseif main.weather[0].main == "Snow" }}
+        <ion-icon name="snow-outline"></ion-icon>
+        {{elseif main.weather[0].main == "Clouds" }}
+        <ion-icon name="cloudy-night-outline"></ion-icon>
+        {{elseif main.weather[0].main == "Clear"}}
+        <ion-icon name="sunny-outline"></ion-icon>
+        {{elseif main.weather[0].main == "Smoke"}}
+        <ion-icon name="logo-no-smoking"></ion-icon>
+        {{elseif main.weather[0].main == "Mist"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif main.weather[0].main == "Haze"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif main.weather[0].main == "Dust"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif main.weather[0].main == "Fog"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif main.weather[0].main == "Dust"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif main.weather[0].main == "Ash"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif main.weather[0].main == "Squall"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif main.weather[0].main == "Tornado"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{else}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{/if}}
+        <p>{{main.weather[0].main}}</p>
+      </div>
+      <div class="temperature">
+        <h1>{{main.main.temp}}<sup><small>°C</small></sup></h1>
+        <p>{{main.main.temp_min}}<sup><small>°C</small></sup> | {{main.main.temp_max}}<sup><small>°C</small></sup></p>
+      </div>
+    </div>
+    <ul class="list-temperature d-flex align-items-center justify-content-evenly">
+      {{#todays}}
+      <li>
+        <h3>{{main.temp}}<sup><small>°C</small></sup></h3>
+        <p>{{greeting}}</p>
+      </li>
+      {{/todays}}
+    </ul>
+
+    <ul class="status d-flex align-items-center justify-content-evenly">
+      <li>
+        <ion-icon name="speedometer-outline"></ion-icon>
+        <p>Pressure: {{main.main.pressure}} hPa</p>
+      </li>
+      <li>
+        <ion-icon name="thermometer-outline"></ion-icon>
+        <p>Humidity: {{main.main.humidity}}%</p>
+      </li>
+    </ul>
+
+    <ul class="weather-day d-flex align-items-center justify-content-evenly">
+      {{#tomorrows:i}}
+      <li>
+        <p>{{dt_txt}}</p>
+        {{#if weather[0].main == "Thunderstorm"}}
+        <ion-icon name="thunderstorm-outline"></ion-icon>
+        {{elseif weather[0].main == "Drizzle" }}
+        <ion-icon name="rainy-outline"></ion-icon>
+        {{elseif weather[0].main == "Rain" }}
+        <ion-icon name="rainy-outline"></ion-icon>
+        {{elseif weather[0].main == "Snow" }}
+        <ion-icon name="snow-outline"></ion-icon>
+        {{elseif weather[0].main == "Clouds" }}
+        <ion-icon name="cloudy-night-outline"></ion-icon>
+        {{elseif weather[0].main == "Clear"}}
+        <ion-icon name="sunny-outline"></ion-icon>
+        {{elseif weather[0].main == "Smoke"}}
+        <ion-icon name="logo-no-smoking"></ion-icon>
+        {{elseif weather[0].main == "Mist"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif weather[0].main == "Haze"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif weather[0].main == "Dust"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif weather[0].main == "Fog"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif weather[0].main == "Dust"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif weather[0].main == "Ash"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif weather[0].main == "Squall"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{elseif weather[0].main == "Tornado"}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{else}}
+        <ion-icon name="help-circle-outline"></ion-icon>
+        {{/if}}
+        <p>{{main.temp_min}}<sup><small>°C</small></sup> | {{main.temp_max}}<sup><small>°C</small></sup></p>
+        <p>{{tomorrows[i].weather[0].main}}</p>
+      </li>
+      {{/tomorrows}}
+    </ul>
+  </div>
+</body>
+
+</html>
